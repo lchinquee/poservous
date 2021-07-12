@@ -1,5 +1,17 @@
+const db = require('./db/connection');
 const inquirer = require('inquirer');
 const fs = require('fs');
+
+const PORT = process.env.PORT || 3001;
+
+// Start server after DB connection
+db.connect(err => {
+    if (err) throw err;
+    console.log('Database connected.');
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+});
 
 // Array of questions for user input
 const questions = readmeData => {
