@@ -1,5 +1,6 @@
 const db = require('./db/connection');
 const inquirer = require('inquirer');
+const cTable = require('console.table');
 const fs = require('fs');
 
 const PORT = process.env.PORT || 3001;
@@ -156,14 +157,11 @@ const writeFile = fileContent => {
 // Function to initialize app
 function init() {
     return questions()
-        .then(readmeData => {
-            return generateMarkdown(readmeData);
+        .then(data => {
+            return generateResults(data);
         })
-        .then(pageREADME => {
-            return writeFile(pageREADME);
-        })
-        .then(writeFileResponse => {
-            console.log(writeFileResponse);
+        .then(data => {
+            console.table(data);
         })
         .catch(error => {
             console.log(error);
